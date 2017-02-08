@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-c:\users\luis\documents\visual studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\
+C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\
 DirectorioSjf2017
 none
 false
 DEBUG;TRACE
-c:\users\luis\documents\visual studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\App.xaml
-3-1948819064
+C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\App.xaml
+5-1324981744
 
-14-747620218
-27685392486
-Directorio.xaml;MainWindow.xaml;Theme\Padrontheme.xaml;
+20-1836516145
+29885822069
+Directorio.xaml;Formularios\Funcionarios\AgregaEncargados.xaml;Formularios\Funcionarios\SeleccionaOrgAdscrip.xaml;MainWindow.xaml;Theme\Padrontheme.xaml;
 
-True
+False
 

@@ -14,7 +14,7 @@ namespace DirectorioSjf2017.Model
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["Base"].ConnectionString;
 
 
-        public ObservableCollection<Organismo> GetOrganismos(bool activos)
+        public ObservableCollection<Organismo> GetOrganismos()
         {
             ObservableCollection<Organismo> catalogoOrganismo = new ObservableCollection<Organismo>();
 
@@ -22,7 +22,7 @@ namespace DirectorioSjf2017.Model
 
             string sqlCadena = "SELECT O.*, Tpo.TpoOrg as Texto,IdGrupo, D.Distribucion  " +
                                "FROM C_Distribucion D INNER JOIN (C_TipoOrganismo Tpo INNER JOIN C_Organismo O ON Tpo.IdTpoOrg = O.IdTpoOrg)  " +
-                               "ON D.IdDistribucion = O.IdTpodist WHERE O.Activo = 1 AND (O.IdTpoOrg = 2 OR O.IdTpoOrg = 4 OR O.IdTpoOrg = 8) " +
+                               "ON D.IdDistribucion = O.IdTpodist WHERE O.Activo = 1 AND Tpo.IdGrupo = 1 " +
                                "ORDER BY O.IdTpoOrg, O.IdCircuito, O.IdOrdinal, DescOrgMay";
 
             SqlConnection connection = new SqlConnection(connectionString);
@@ -34,7 +34,6 @@ namespace DirectorioSjf2017.Model
                 connection.Open();
 
                 cmd = new SqlCommand(sqlCadena, connection);
-                cmd.Parameters.AddWithValue("@Activo", Convert.ToInt16(activos));
                 reader = cmd.ExecuteReader();
 
                 if (reader.HasRows)

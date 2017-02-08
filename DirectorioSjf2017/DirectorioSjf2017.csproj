@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\Padron\Padron\bin\Debug\MahApps.Metro.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -47,6 +50,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -93,9 +97,27 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\AdscritosConverter.cs" />
+    <Compile Include="Converter\OrganismoConverter.cs" />
+    <Compile Include="Dto\Encargado.cs" />
+    <Compile Include="Formularios\Funcionarios\AgregaEncargados.xaml.cs">
+      <DependentUpon>AgregaEncargados.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Funcionarios\SeleccionaOrgAdscrip.xaml.cs">
+      <DependentUpon>SeleccionaOrgAdscrip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EncargadosModel.cs" />
     <Compile Include="Reportes\WordReport.cs" />
+    <Compile Include="Singletons\OrganismoDirSingleton.cs" />
     <Compile Include="Theme\MyColumnNumber.cs" />
     <Page Include="Directorio.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\Funcionarios\AgregaEncargados.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\Funcionarios\SeleccionaOrgAdscrip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -146,6 +168,300 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Author_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Author_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\author_edit_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\author_plus_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Books_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Books_128_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Books_128_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Books_128_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bookshelf_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Boy_Girl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\boygirl_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\brush_clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Building.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Building_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Building_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Building_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cadenaControl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\calDate_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\calRecip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\catObras.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\catTitulares.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ConSintesis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\contraloria_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\degree_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\deleteAll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\deliv_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\delivery_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\descargaComprobante_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\detail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\devolution.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\dfMetroPol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\duplicate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\error_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\escoba.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\excel_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\excel_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\exportarKiosko.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\function.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\guia_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ibooks-icon-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ImaPadron.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\label.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lawyers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lines_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mailp_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mantenimiento.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\map_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mexico_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\multipleDocs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\number_128_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ObraInfo_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ObraInfoEdit_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\old_256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pantone_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\paperConfig_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pdf_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pdf_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\picture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PorObra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\repeat_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rocket.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\saveArrow_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\schedule_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\search_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\searchtable_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SelectMultiple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SelectSencilla.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SinSintesis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\straTrophy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\titular.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tree_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tree2_128_cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\user1_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\word_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\word_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\world_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\1405447864_mail_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\1425495851_lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AcuerdoCancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\acuse_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\add_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\aguila vertical.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\auditor_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Author.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\author_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Author_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Author_books.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\male_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\minus_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pencil_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addsign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\devCal_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\devolution_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\female_128.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

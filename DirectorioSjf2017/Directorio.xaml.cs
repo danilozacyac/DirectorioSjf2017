@@ -28,9 +28,9 @@ namespace DirectorioSjf2017
 
         private void RadWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //GOrganismos.DataContext = new OrganismoDirModel().GetOrganismos(true);
+            GOrganismos.DataContext = new OrganismoDirModel().GetOrganismos();
 
-            new WordReport().ListadoEncargados();
+            //new WordReport().ListadoEncargados();
         }
     }
 }

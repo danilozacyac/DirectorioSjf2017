@@ -43,3 +43,6 @@ c:\users\luis\documents\visual studio 2013\Projects\DirectorioSjf2017\Directorio
 c:\users\luis\documents\visual studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\bin\Debug\uicontrols.dll
 c:\users\luis\documents\visual studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\GeneratedInternalTypeHelper.g.cs
 c:\users\luis\documents\visual studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\DirectorioSjf2017_MarkupCompile.lref
+C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\bin\Debug\DirectorioSjf2017.exe.config
+C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\DirectorioSjf2017.exe
+C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\DirectorioSjf2017.pdb
