@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using DirectorioSjf2017.Dto;
+using DirectorioSjf2017.Formularios.Funcionarios;
 using PadronApi.Dto;
 using PadronApi.Model;
 using Telerik.Windows.Controls;
-using System.Configuration;
 
 namespace DirectorioSjf2017
 {
@@ -33,8 +36,8 @@ namespace DirectorioSjf2017
             {
                 AccesoUsuario.Permisos = new PermisosModel().GetPermisosByUser(AccesoUsuario.Llave);
 
-                Directorio padron = new Directorio();
-                padron.Show();
+                AgregaEncargados add = new AgregaEncargados(new ObservableCollection<Encargado>());
+                add.ShowDialog();
                 this.Close();
             }
             else

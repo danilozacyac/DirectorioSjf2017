@@ -1,9 +1,6 @@
-﻿using PadronApi.Dto;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PadronApi.Dto;
 
 namespace DirectorioSjf2017.Dto
 {
@@ -26,6 +23,7 @@ namespace DirectorioSjf2017.Dto
             set
             {
                 this.idOrganismo = value;
+                this.OnPropertyChanged("IdOrganismo");
             }
         }
 
@@ -41,6 +39,7 @@ namespace DirectorioSjf2017.Dto
             set
             {
                 this.idTpoOrg = value;
+                this.OnPropertyChanged("IdTpoOrg");
             }
         }
 
@@ -54,6 +53,7 @@ namespace DirectorioSjf2017.Dto
             set
             {
                 this.idFuncion = value;
+                this.OnPropertyChanged("IdFuncion");
             }
         }
     }

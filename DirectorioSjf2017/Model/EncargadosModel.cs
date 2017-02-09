@@ -1,13 +1,11 @@
-﻿using DirectorioSjf2017.Dto;
-using ScjnUtilities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DirectorioSjf2017.Dto;
+using PadronApi.Dto;
+using ScjnUtilities;
 
 namespace DirectorioSjf2017.Model
 {
@@ -21,10 +19,6 @@ namespace DirectorioSjf2017.Model
         {
             ObservableCollection<Encargado> catalogoEncargados = new ObservableCollection<Encargado>();
 
-            string condition = String.Empty;
-
-            string sqlQuery = "SELECT * FROM C_Titular ORDER BY Apellidos";
-
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand cmd = null;
             SqlDataReader reader = null;
@@ -33,7 +27,7 @@ namespace DirectorioSjf2017.Model
             {
                 connection.Open();
 
-                cmd = new SqlCommand(sqlQuery, connection);
+                cmd = new SqlCommand("SELECT * FROM C_Encargado ORDER BY Apellidos", connection);
                 reader = cmd.ExecuteReader();
 
                 if (reader.HasRows)
@@ -82,6 +76,62 @@ namespace DirectorioSjf2017.Model
         }
 
 
+        /// <summary>
+        /// Verifica si el titular que se esta intentando agregar existe o no en la base de datos
+        /// </summary>
+        /// <param name="nombre">Nombre del titular normalizado</param>
+        /// <returns></returns>
+        public bool DoEncargadoExist(string nombre)
+        {
+            const string SqlQuery = "SELECT * FROM C_Titular WHERE NombMay = @Nombre ORDER BY Apellidos";
+
+            int cuantos = 0;
+            bool existe = false;
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand cmd = null;
+            SqlDataReader reader = null;
+
+            try
+            {
+                connection.Open();
+
+                cmd = new SqlCommand(SqlQuery, connection);
+                cmd.Parameters.AddWithValue("@Nombre", nombre);
+                reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        cuantos++;
+                    }
+                }
+                cmd.Dispose();
+                reader.Close();
+
+                if (cuantos > 0)
+                    existe = true;
+            }
+            catch (SqlException ex)
+            {
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EncargadosModel", "DirectorioSjf2017");
+            }
+            catch (Exception ex)
+            {
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EncargadosModel", "DirectorioSjf2017");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return existe;
+        }
+
+
         public bool InsertaEncargado(Encargado encargado)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -89,12 +139,15 @@ namespace DirectorioSjf2017.Model
             bool insertCompleted = false;
 
             encargado.IdTitular = DataBaseUtilities.GetNextIdForUse("C_Encargado", "IdEncargado", connection);
-            encargado.QuiereDistribucion = 1;
+
+            if (encargado.IdTitular == 0)
+                encargado.IdTitular = 1;
+
             try
             {
                 connection.Open();
 
-                string sqlQuery = "INSERT INTO C_Titular(IdEncargado, Nombre,Apellidos,IdTitulo,NombMay,IdOrganismo,IdUsr,Fecha,Obs,Genero,IdTpoOrg,IdFuncion)" +
+                string sqlQuery = "INSERT INTO C_Encargado(IdEncargado, Nombre,Apellidos,IdTitulo,NombMay,IdOrganismo,IdUsr,Fecha,Obs,Genero,IdTpoOrg,IdFuncion)" +
                                   "VALUES (@IdEncargado,@Nombre,@Apellidos,@IdTitulo,@NombMay,@IdOrganismo,@IdUsr,@Fecha,@Obs,@Genero,@IdTpoOrg,@IdFuncion)";
 
                 SqlCommand cmd = new SqlCommand(sqlQuery, connection);
@@ -139,7 +192,7 @@ namespace DirectorioSjf2017.Model
         /// </summary>
         /// <param name="encargado"></param>
         /// <returns></returns>
-        public bool UpdateTitular(Encargado encargado)
+        public bool UpdateEncargado(Encargado encargado)
         {
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -149,7 +202,7 @@ namespace DirectorioSjf2017.Model
             {
                 connection.Open();
 
-                string sqlQuery = "UPDATE C_Titular SET Nombre = @Nombre,Apellidos = @Apellidos," +
+                string sqlQuery = "UPDATE C_Encargado SET Nombre = @Nombre,Apellidos = @Apellidos," +
                                   "NombMay = @NombMay,Obs = @Obs, IdTitulo = @IdTitulo, IdOrganismo = @IdOrganismo, IdTpoOrg = @IdTpoOrg, " +
                                   " IdUsr = @IdUsr, Fecha = @Fecha, Genero = @Genero, IdFuncion = @IdFuncion  WHERE IdEncargado = @IdEncargado";
 
@@ -165,7 +218,7 @@ namespace DirectorioSjf2017.Model
                 cmd.Parameters.AddWithValue("@Fecha", DateTimeUtilities.DateToInt(DateTime.Now));
                 cmd.Parameters.AddWithValue("@Genero", encargado.Genero);
                 cmd.Parameters.AddWithValue("@IdFuncion", encargado.IdFuncion);
-                cmd.Parameters.AddWithValue("@IdTitular", encargado.IdTitular);
+                cmd.Parameters.AddWithValue("@IdEncargado", encargado.IdTitular);
 
                 cmd.ExecuteNonQuery();
 

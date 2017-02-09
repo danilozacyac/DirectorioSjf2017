@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:converter="clr-namespace:PadronApi.Converter;assembly=PadronApi"
+    xmlns:orgConver="clr-namespace:DirectorioSjf2017.Converter"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     Width="800"
     Height="600"
@@ -12,6 +13,7 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen">
     <telerik:RadWindow.Resources>
+        <orgConver:OrganismoConverter x:Key="orgConv" />
         <converter:TextValConverter x:Key="textConv" />
         <converter:FuncionConverter x:Key="funcConv" />
     </telerik:RadWindow.Resources>
@@ -123,7 +125,7 @@
                 VerticalAlignment="Top"
                 FontSize="14"
                 FontWeight="Bold"
-                Text="TextBlock"
+                Text="{Binding IdOrganismo, Converter={StaticResource orgConv}, Mode=TwoWay}"
                 TextWrapping="Wrap" />
             <TextBlock
                 x:Name="TxtFuncion"
@@ -132,7 +134,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="14"
-                Text="TextBlock"
+                Text="{Binding IdFuncion, Converter={StaticResource funcConv}, Mode=TwoWay}"
                 TextWrapping="Wrap" />
         </Grid>
         <Button

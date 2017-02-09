@@ -1,7 +1,11 @@
-﻿using DirectorioSjf2017.Model;
+﻿using DirectorioSjf2017.Dto;
+using DirectorioSjf2017.Formularios.Funcionarios;
+using DirectorioSjf2017.Model;
 using DirectorioSjf2017.Reportes;
+using DirectorioSjf2017.Singletons;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -28,7 +32,10 @@ namespace DirectorioSjf2017
 
         private void RadWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            GOrganismos.DataContext = new OrganismoDirModel().GetOrganismos();
+            GOrganismos.DataContext = OrganismoDirSingleton.Organismos;
+
+            AgregaEncargados add = new AgregaEncargados(new ObservableCollection<Encargado>());
+            add.ShowDialog();
 
             //new WordReport().ListadoEncargados();
         }

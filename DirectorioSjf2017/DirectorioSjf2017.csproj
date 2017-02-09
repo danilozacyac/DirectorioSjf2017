@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro">
-      <HintPath>..\..\Padron\Padron\bin\Debug\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\..\..\GitHub\MahApps.Metro\MahApps.Metro\bin\Debug\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -98,12 +98,16 @@
     </ApplicationDefinition>
     <Compile Include="Converter\AdscritosConverter.cs" />
     <Compile Include="Converter\OrganismoConverter.cs" />
+    <Compile Include="Converter\RowPresidentConverter.cs" />
     <Compile Include="Dto\Encargado.cs" />
     <Compile Include="Formularios\Funcionarios\AgregaEncargados.xaml.cs">
       <DependentUpon>AgregaEncargados.xaml</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Funcionarios\SeleccionaOrgAdscrip.xaml.cs">
       <DependentUpon>SeleccionaOrgAdscrip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\OrganismosF\ActualizarVerOrganismo.xaml.cs">
+      <DependentUpon>ActualizarVerOrganismo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\EncargadosModel.cs" />
     <Compile Include="Reportes\WordReport.cs" />
@@ -118,6 +122,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Formularios\Funcionarios\SeleccionaOrgAdscrip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\OrganismosF\ActualizarVerOrganismo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -462,6 +470,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\female_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Formularios\PlenosCircuito\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,6 +7,8 @@ using PadronApi.Dto;
 using PadronApi.Model;
 using PadronApi.Singletons;
 using ScjnUtilities;
+using DirectorioSjf2017.Dto;
+using DirectorioSjf2017.Model;
 
 namespace DirectorioSjf2017.Formularios.Funcionarios
 {
@@ -17,26 +19,25 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
     {
         private bool isUpdating;
         private bool mostrarEnCombo;
-        private ObservableCollection<AgregaEncargados> catalogoTitulares;
-        private Titular titular;
+        private ObservableCollection<Encargado> catalogoTitulares;
+        private Encargado encargado;
         string qCambio = String.Empty;
 
         private Adscripcion selectedAdscripcion;
 
-        public AgregaEncargados(ObservableCollection<AgregaEncargados> catalogoTitulares)
+        public AgregaEncargados(ObservableCollection<Encargado> catalogoTitulares)
         {
             InitializeComponent();
             this.catalogoTitulares = catalogoTitulares;
-            this.titular = new Titular();
-            titular.Adscripciones = new ObservableCollection<Adscripcion>();
+            this.encargado = new Encargado();
             this.isUpdating = false;
-            titular.Estado = 1;
+            encargado.Estado = 1;
         }
 
-        public AgregaEncargados(Titular titular, bool isUpdating)
+        public AgregaEncargados(Encargado encargado, bool isUpdating)
         {
             InitializeComponent();
-            this.titular = titular;
+            this.encargado = encargado;
             this.isUpdating = isUpdating;
 
             if (!isUpdating)
@@ -57,20 +58,18 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (titular.IdTitular != 0)
-                titular.Adscripciones = new TitularModel().GetAdscripcionesTitular(titular);
-            GOrganismos.DataContext = titular.Adscripciones;
+            this.CargaTitulos(2);
 
-            if (titular.Genero == 2)
+            if (encargado.Genero == 2)
                 TbGenero_Checked(null, null);
             else
                 TbGenero.IsChecked = false;
 
-            this.DataContext = titular;
+            this.DataContext = encargado;
 
             if (mostrarEnCombo)
             {
-                CbxGrado.SelectedValue = titular.IdTitulo;
+                CbxGrado.SelectedValue = encargado.IdTitulo;
             }
 
             qCambio = String.Empty;
@@ -78,50 +77,25 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
 
         private void BtnEliminaAdscripcion_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedAdscripcion == null)
-            {
-                MessageBox.Show("Selecciona el organismo del cual deseas eliminar la adscripción");
+            MessageBoxResult result = MessageBox.Show("¿Estas seguro de eliminar la adscripción de este titular?", "Atención",
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            }
-            else
+            if (result == MessageBoxResult.Yes)
             {
-                MessageBoxResult result = MessageBox.Show("¿Estas seguro de eliminar la adscripción de este titular?", "Atención",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    if (titular.IdTitular != 0)
-                    {
-                        TitularModel model = new TitularModel();
-                        model.EliminaAdscripcion(selectedAdscripcion,true);
-                    }
-                    titular.Adscripciones.Remove(selectedAdscripcion);
-                }
+                encargado.IdOrganismo = 0;
+                encargado.IdTpoOrg = 0;
+                encargado.IdFuncion = 0;
             }
+
         }
 
         private void BtnAgregaAdscripcion_Click(object sender, RoutedEventArgs e)
         {
-            if (titular.Adscripciones == null)
-                titular.Adscripciones = new ObservableCollection<Adscripcion>();
-
-                //Mostrar la ventana de seleccion de organismo
-            SeleccionaOrgAdscrip org = new SeleccionaOrgAdscrip(titular, isUpdating) { Owner = this };
-            org.ShowDialog();
-           
-        }
-
-        private void BtnModificaAdscripcion_Click(object sender, RoutedEventArgs e)
-        {
-            if (selectedAdscripcion == null)
-            {
-                MessageBox.Show("Selecciona la adscripción que deseas modificar");
-                return;
-            }
-
-            SeleccionaOrgAdscrip org = new SeleccionaOrgAdscrip(selectedAdscripcion) { Owner = this };
+            SeleccionaOrgAdscrip org = new SeleccionaOrgAdscrip(encargado, isUpdating) { Owner = this };
             org.ShowDialog();
         }
+
+        
 
         private void BtnSalir_Click(object sender, RoutedEventArgs e)
         {
@@ -132,49 +106,37 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
         {
             if (CbxGrado.SelectedIndex == -1)
             {
-                MessageBox.Show("Selecciona el título con el cual se deben dirigir los oficios al titular", "Agregar Titular", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Selecciona el título del encargado", "Seleccionar título", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (String.IsNullOrEmpty(TxtNombre.Text) || String.IsNullOrEmpty(TxtApellidos.Text))
             {
-                MessageBox.Show("Ingresa el nombre y los apellidos del titular", "Agregar Titular", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ingresa el nombre y los apellidos del encargado", "Agregar encargado", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            if (!isUpdating && titular.Adscripciones.Count == 0)
-            {
-                MessageBox.Show("Para continuar debes asignar este titular a un organismo", "Titulares", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-            }
+            encargado.IdTitulo = Convert.ToInt32(CbxGrado.SelectedValue);
+            encargado.NombreStr = StringUtilities.PrepareToAlphabeticalOrder(encargado.Nombre) + " " + StringUtilities.PrepareToAlphabeticalOrder(encargado.Apellidos);
 
-            titular.IdTitulo = Convert.ToInt32(CbxGrado.SelectedValue);
-            titular.NombreStr = StringUtilities.PrepareToAlphabeticalOrder(titular.Nombre) + " " + StringUtilities.PrepareToAlphabeticalOrder(titular.Apellidos);
-
-            if ((!String.IsNullOrWhiteSpace(titular.Correo) && !String.IsNullOrEmpty(titular.Correo) && !VerificationUtilities.IsMailAddress(titular.Correo)))
-            {
-                MessageBox.Show("El correo electrónico ingresado no es válido, si no cuentas con uno deja el campo en blanco", "Titulares", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            TitularModel model = new TitularModel();
+            EncargadosModel model = new EncargadosModel();
             bool exito = false;
 
             if (!isUpdating)
             {
-                if (model.DoTitularExist(titular.NombreStr))
+                if (model.DoEncargadoExist(encargado.NombreStr))
                 {
-                    MessageBox.Show("El titular que deseas agregar ya existe", "Titulares", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("El encargado que deseas agregar ya existe", "Titulares", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }
 
-            titular.Nombre = VerificationUtilities.TextBoxStringValidation(titular.Nombre);
-            titular.Apellidos = VerificationUtilities.TextBoxStringValidation(titular.Apellidos);
+            encargado.Nombre = VerificationUtilities.TextBoxStringValidation(encargado.Nombre);
+            encargado.Apellidos = VerificationUtilities.TextBoxStringValidation(encargado.Apellidos);
 
             if (isUpdating)
             {
-                exito = model.UpdateTitular(titular);
+                exito = model.UpdateEncargado(encargado);
 
                 if (!exito)
                 {
@@ -182,14 +144,14 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
                     return;
                 }
 
-                titular.TotalAdscripciones = titular.Adscripciones.Count;
+                encargado.TotalAdscripciones = encargado.Adscripciones.Count;
 
                 this.Close();
 
             }
             else
             {
-                exito = model.InsertaTitular(titular);
+                exito = model.InsertaEncargado(encargado);
 
                 if (!exito)
                 {
@@ -198,10 +160,10 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
                 }
                 else
                 {
-                    catalogoTitulares.Insert(0, titular);
+                    //catalogoTitulares.Insert(0, encargado);
 
-                    if(titular.Adscripciones != null)
-                        titular.TotalAdscripciones = titular.Adscripciones.Count;
+                    if(encargado.Adscripciones != null)
+                        encargado.TotalAdscripciones = encargado.Adscripciones.Count;
                     this.Close();
                 }
             }
@@ -213,25 +175,22 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
         }
 
 
-        private void GOrganismos_SelectionChanged(object sender, Telerik.Windows.Controls.SelectionChangeEventArgs e)
-        {
-            selectedAdscripcion = GOrganismos.SelectedItem as Adscripcion;
-        }
+       
 
         private void TbGenero_Checked(object sender, RoutedEventArgs e)
         {
-            ImGenero.Source = new BitmapImage(new Uri("pack://application:,,,/Funcionarios;component/Resources/female_128.png", UriKind.Absolute));
-            titular.Genero = 2;
+            ImGenero.Source = new BitmapImage(new Uri("pack://application:,,,/DirectorioSjf2017;component/Resources/female_128.png", UriKind.Absolute));
+            encargado.Genero = 2;
             this.CargaTitulos(2);
-            this.CbxGrado.SelectedValue = titular.IdTitulo;
+            this.CbxGrado.SelectedValue = encargado.IdTitulo;
         }
 
         private void TbGenero_Unchecked(object sender, RoutedEventArgs e)
         {
-            ImGenero.Source = new BitmapImage(new Uri("pack://application:,,,/Funcionarios;component/Resources/male_128.png", UriKind.Absolute));
-            titular.Genero = 1;
+            ImGenero.Source = new BitmapImage(new Uri("pack://application:,,,/DirectorioSjf2017;component/Resources/male_128.png", UriKind.Absolute));
+            encargado.Genero = 1;
             this.CargaTitulos(1);
-            this.CbxGrado.SelectedValue = titular.IdTitulo;
+            this.CbxGrado.SelectedValue = encargado.IdTitulo;
         }
 
         private void CargaTitulos(int genero)

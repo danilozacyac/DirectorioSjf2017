@@ -46,3 +46,13 @@ c:\users\luis\documents\visual studio 2013\Projects\DirectorioSjf2017\Directorio
 C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\bin\Debug\DirectorioSjf2017.exe.config
 C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\DirectorioSjf2017.exe
 C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\DirectorioSjf2017.pdb
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\bin\Debug\MahApps.Metro.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\bin\Debug\MahApps.Metro.pdb
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\bin\Debug\MahApps.Metro.xml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\SeleccionaOrgAdscrip.baml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\AgregaEncargados.g.cs
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\SeleccionaOrgAdscrip.g.cs
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\AgregaEncargados.baml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\OrganismosF\ActualizarVerOrganismo.g.cs
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\OrganismosF\ActualizarVerOrganismo.baml
