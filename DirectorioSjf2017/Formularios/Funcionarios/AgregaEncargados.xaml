@@ -7,7 +7,7 @@
     xmlns:orgConver="clr-namespace:DirectorioSjf2017.Converter"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     Width="800"
-    Height="600"
+    Height="400"
     Header="Agregar encargado"
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
@@ -94,48 +94,6 @@
                         Source="Resources/female_128.png" />
                 </Grid>
             </GroupBox>
-
-            <Button
-                x:Name="BtnAgregaAdscripcion"
-                Width="38"
-                Height="28"
-                Margin="0,356,10,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Click="BtnAgregaAdscripcion_Click">
-                <Image Source="/DirectorioSjf2017;component/Resources/addsign.png" />
-            </Button>
-
-            <Button
-                x:Name="BtnEliminaAdscripcion"
-                Width="38"
-                Height="28"
-                Margin="0,389,10,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Click="BtnEliminaAdscripcion_Click">
-                <Image Source="/DirectorioSjf2017;component/Resources/minus_48.png" />
-            </Button>
-            <TextBlock
-                x:Name="TxtOrganismo"
-                Width="712"
-                Height="61"
-                Margin="15,323,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="14"
-                FontWeight="Bold"
-                Text="{Binding IdOrganismo, Converter={StaticResource orgConv}, Mode=TwoWay}"
-                TextWrapping="Wrap" />
-            <TextBlock
-                x:Name="TxtFuncion"
-                Width="681"
-                Margin="15,389,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="14"
-                Text="{Binding IdFuncion, Converter={StaticResource funcConv}, Mode=TwoWay}"
-                TextWrapping="Wrap" />
         </Grid>
         <Button
             x:Name="BtnSalir"

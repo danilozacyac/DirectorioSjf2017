@@ -9,6 +9,7 @@ using PadronApi.Singletons;
 using ScjnUtilities;
 using DirectorioSjf2017.Dto;
 using DirectorioSjf2017.Model;
+using DirectorioSjf2017.Singletons;
 
 namespace DirectorioSjf2017.Formularios.Funcionarios
 {
@@ -126,7 +127,7 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
             {
                 if (model.DoEncargadoExist(encargado.NombreStr))
                 {
-                    MessageBox.Show("El encargado que deseas agregar ya existe", "Titulares", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("El encargado que deseas agregar ya existe", "Encargados", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }
@@ -160,10 +161,7 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
                 }
                 else
                 {
-                    //catalogoTitulares.Insert(0, encargado);
-
-                    if(encargado.Adscripciones != null)
-                        encargado.TotalAdscripciones = encargado.Adscripciones.Count;
+                    EncargadosSingleton.Encargados.Add(encargado);
                     this.Close();
                 }
             }

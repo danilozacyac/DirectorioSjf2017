@@ -36,8 +36,8 @@ namespace DirectorioSjf2017
             {
                 AccesoUsuario.Permisos = new PermisosModel().GetPermisosByUser(AccesoUsuario.Llave);
 
-                AgregaEncargados add = new AgregaEncargados(new ObservableCollection<Encargado>());
-                add.ShowDialog();
+                Directorio directorio = new Directorio();
+                directorio.Show();
                 this.Close();
             }
             else

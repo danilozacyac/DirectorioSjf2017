@@ -6,7 +6,7 @@ using PadronApi.Dto;
 
 namespace DirectorioSjf2017.Singletons
 {
-    class OrganismoDirSingleton
+    public class OrganismoDirSingleton
     {
         private static ObservableCollection<Organismo> organismos;
 

@@ -8,6 +8,9 @@ using PadronApi.Dto;
 using PadronApi.Model;
 using PadronApi.Singletons;
 using ScjnUtilities;
+using DirectorioSjf2017.Formularios.Funcionarios;
+using DirectorioSjf2017.Dto;
+using DirectorioSjf2017.Model;
 
 namespace DirectorioSjf2017.Formularios.OrganismosF
 {
@@ -24,7 +27,10 @@ namespace DirectorioSjf2017.Formularios.OrganismosF
         private Adscripcion selectedAdscripciones;
         private TipoOrganismo selectedTipoOrg;
 
+        private Encargado selectedEncargado;
+
         private ObservableCollection<Materia> listaMaterias;
+        private ObservableCollection<Encargado> listaEncargados;
 
         private Organismo organismo;
         private Organismo organismoOriginal;
@@ -42,15 +48,19 @@ namespace DirectorioSjf2017.Formularios.OrganismosF
             organismoOriginal = new OrganismoModel().GetOrganismos(organismo.IdOrganismo);
             this.organismo = organismo;
             this.isUpdating = isUpdating;
-            TxtObservaciones.IsReadOnly = !isUpdating;
             RbtnAgregaFuncionario.IsEnabled = isUpdating;
             RbtnEliminar.IsEnabled = isUpdating;
+            Grid3.IsEnabled = isUpdating;
 
             if (!isUpdating)
             {
                 BtnAceptar.Visibility = Visibility.Collapsed;
                 BtnCancelar.Content = "Salir";
                 this.Header = "Ver información";
+                BtnAddEncargado.Visibility = Visibility.Collapsed;
+                BtnDelEncargado.Visibility = Visibility.Collapsed;
+                RbtnAgregaFuncionario.Visibility = Visibility.Collapsed;
+                RbtnEliminar.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -67,6 +77,9 @@ namespace DirectorioSjf2017.Formularios.OrganismosF
             CbxPais.DataContext = PaisesSingleton.Paises;
 
             this.DataContext = organismo;
+
+            listaEncargados = new EncargadosModel().GetEncargados(organismo.IdOrganismo);
+            GridEncargados.DataContext = listaEncargados;
 
             listaMaterias = new Materia().GetMaterias();
             CbxMateria1.DataContext = listaMaterias;
@@ -142,8 +155,7 @@ namespace DirectorioSjf2017.Formularios.OrganismosF
 
         private void RbtnAgregaFuncionario_Click(object sender, RoutedEventArgs e)
         {
-            SelecccionaFuncionarios select = new SelecccionaFuncionarios(organismo, true);
-            select.Owner = this;
+            SeleccionaFuncionarios select = new SeleccionaFuncionarios(organismo, true) { Owner = this };
             select.ShowDialog();
             organismo.TotalAdscritos = organismo.Adscripciones.Count;
         }
@@ -554,25 +566,27 @@ namespace DirectorioSjf2017.Formularios.OrganismosF
 
         private void GIntegrantes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
-            MessageBoxResult result = MessageBox.Show("¿Estas seguro de asignar a " +
-                selectedAdscripciones.Titular.Nombre + " " + selectedAdscripciones.Titular.Apellidos + " como presidente de este organismo?",
-                "Atención:", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
+            if (isUpdating == true)
             {
-                new TitularModel().UpdatePresidente(selectedAdscripciones.Titular.IdTitular, organismo.IdOrganismo);
 
-                foreach (Adscripcion adscrip in organismo.Adscripciones)
+                MessageBoxResult result = MessageBox.Show("¿Estas seguro de asignar a " +
+                    selectedAdscripciones.Titular.Nombre + " " + selectedAdscripciones.Titular.Apellidos + " como presidente de este organismo?",
+                    "Atención:", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    if (adscrip.Funcion == 1)
-                        adscrip.Funcion = 0;
+                    new TitularModel().UpdatePresidente(selectedAdscripciones.Titular.IdTitular, organismo.IdOrganismo);
+
+                    foreach (Adscripcion adscrip in organismo.Adscripciones)
+                    {
+                        if (adscrip.Funcion == 1)
+                            adscrip.Funcion = 0;
+                    }
+
+                    selectedAdscripciones.Funcion = 1;
+                    organismo.TotalAdscritos = organismo.Adscripciones.Count;
                 }
-
-                selectedAdscripciones.Funcion = 1;
-                organismo.TotalAdscritos = organismo.Adscripciones.Count;
             }
-
         }
 
 
@@ -608,6 +622,45 @@ namespace DirectorioSjf2017.Formularios.OrganismosF
                 organismo.Abreviado = organismoOriginal.Abreviado;
                 organismo.Orden = organismoOriginal.Orden;
             }
+        }
+
+        private void BtnAddEncargado_Click(object sender, RoutedEventArgs e)
+        {
+            SeleccionaEncargados addEncargado = new SeleccionaEncargados(organismo.IdOrganismo, organismo.TipoOrganismo) { Owner = this };
+            addEncargado.ShowDialog();
+
+            listaEncargados = new EncargadosModel().GetEncargados(organismo.IdOrganismo);
+            GridEncargados.DataContext = listaEncargados;
+        }
+
+        private void BtnDelEncargado_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedEncargado == null)
+            {
+                MessageBox.Show("Selecciona el encargado del organismo que deseas eliminar");
+                return;
+            }
+
+            selectedEncargado.IdOrganismo = 0;
+            selectedEncargado.IdTpoOrg = 0;
+            selectedEncargado.IdFuncion = 0;
+
+            bool completed = new EncargadosModel().UpdateEncargado(selectedEncargado);
+
+            if (completed)
+            {
+                listaEncargados.Remove(selectedEncargado);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("No se pudo completar la operación, favor de intentarlo más tarde");
+            }
+        }
+
+        private void GridEncargados_SelectionChanged(object sender, Telerik.Windows.Controls.SelectionChangeEventArgs e)
+        {
+            selectedEncargado = GridEncargados.SelectedItem as Encargado;
         }
 
 

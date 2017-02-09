@@ -42,7 +42,71 @@ namespace DirectorioSjf2017.Model
                             NombreStr = reader["NombMay"].ToString(),
                             IdTitulo = Convert.ToInt32(reader["IdTitulo"]),
                             Observaciones = reader["Obs"].ToString(),
-                            Estado = Convert.ToInt32(reader["IdEstatus"]),
+                            Genero = Convert.ToInt16(reader["Genero"]),
+                            IdOrganismo = Convert.ToInt32(reader["IdOrganismo"]),
+                            IdFuncion = Convert.ToInt32(reader["IdFuncion"]),
+                            IdTpoOrg = Convert.ToInt32(reader["IdTpoOrg"])
+                        };
+
+
+                        catalogoEncargados.Add(titular);
+                    }
+                }
+                cmd.Dispose();
+                reader.Close();
+
+            }
+            catch (SqlException ex)
+            {
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EncargadosModel", "DirectorioSjf2017");
+            }
+            catch (Exception ex)
+            {
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EncargadosModel", "DirectorioSjf2017");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return catalogoEncargados;
+        }
+
+        /// <summary>
+        /// Obtiene los encargados del Tribunal o Pleno de Circuito seleccionado
+        /// </summary>
+        /// <param name="idOrganismo"></param>
+        /// <returns></returns>
+        public ObservableCollection<Encargado> GetEncargados(int idOrganismo)
+        {
+            ObservableCollection<Encargado> catalogoEncargados = new ObservableCollection<Encargado>();
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand cmd = null;
+            SqlDataReader reader = null;
+
+            try
+            {
+                connection.Open();
+
+                cmd = new SqlCommand("SELECT * FROM C_Encargado WHERE IdOrganismo = @IdOrganismo ORDER BY Apellidos", connection);
+                cmd.Parameters.AddWithValue("@IdOrganismo", idOrganismo);
+                reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Encargado titular = new Encargado()
+                        {
+                            IdTitular = Convert.ToInt32(reader["IdEncargado"]),
+                            Nombre = reader["Nombre"].ToString(),
+                            Apellidos = reader["Apellidos"].ToString(),
+                            NombreStr = reader["NombMay"].ToString(),
+                            IdTitulo = Convert.ToInt32(reader["IdTitulo"]),
+                            Observaciones = reader["Obs"].ToString(),
                             Genero = Convert.ToInt16(reader["Genero"]),
                             IdOrganismo = Convert.ToInt32(reader["IdOrganismo"]),
                             IdFuncion = Convert.ToInt32(reader["IdFuncion"]),
@@ -83,7 +147,7 @@ namespace DirectorioSjf2017.Model
         /// <returns></returns>
         public bool DoEncargadoExist(string nombre)
         {
-            const string SqlQuery = "SELECT * FROM C_Titular WHERE NombMay = @Nombre ORDER BY Apellidos";
+            const string SqlQuery = "SELECT * FROM C_Encargado WHERE NombMay = @Nombre ORDER BY Apellidos";
 
             int cuantos = 0;
             bool existe = false;

@@ -103,6 +103,12 @@
     <Compile Include="Formularios\Funcionarios\AgregaEncargados.xaml.cs">
       <DependentUpon>AgregaEncargados.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Funcionarios\SeleccionaEncargados.xaml.cs">
+      <DependentUpon>SeleccionaEncargados.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Funcionarios\SeleccionaFuncionarios.xaml.cs">
+      <DependentUpon>SeleccionaFuncionarios.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Funcionarios\SeleccionaOrgAdscrip.xaml.cs">
       <DependentUpon>SeleccionaOrgAdscrip.xaml</DependentUpon>
     </Compile>
@@ -111,13 +117,23 @@
     </Compile>
     <Compile Include="Model\EncargadosModel.cs" />
     <Compile Include="Reportes\WordReport.cs" />
+    <Compile Include="Singletons\EncargadosSingleton.cs" />
     <Compile Include="Singletons\OrganismoDirSingleton.cs" />
+    <Compile Include="Singletons\TirularSingleton.cs" />
     <Compile Include="Theme\MyColumnNumber.cs" />
     <Page Include="Directorio.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Formularios\Funcionarios\AgregaEncargados.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\Funcionarios\SeleccionaEncargados.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\Funcionarios\SeleccionaFuncionarios.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
