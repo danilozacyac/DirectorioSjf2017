@@ -74,6 +74,8 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
             }
 
             qCambio = String.Empty;
+
+            TxtApellidos.Focus();
         }
 
         private void BtnEliminaAdscripcion_Click(object sender, RoutedEventArgs e)
@@ -180,7 +182,7 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
             ImGenero.Source = new BitmapImage(new Uri("pack://application:,,,/DirectorioSjf2017;component/Resources/female_128.png", UriKind.Absolute));
             encargado.Genero = 2;
             this.CargaTitulos(2);
-            this.CbxGrado.SelectedValue = encargado.IdTitulo;
+            this.CbxGrado.SelectedValue = 15;
         }
 
         private void TbGenero_Unchecked(object sender, RoutedEventArgs e)
@@ -188,7 +190,7 @@ namespace DirectorioSjf2017.Formularios.Funcionarios
             ImGenero.Source = new BitmapImage(new Uri("pack://application:,,,/DirectorioSjf2017;component/Resources/male_128.png", UriKind.Absolute));
             encargado.Genero = 1;
             this.CargaTitulos(1);
-            this.CbxGrado.SelectedValue = encargado.IdTitulo;
+            this.CbxGrado.SelectedValue = 3;
         }
 
         private void CargaTitulos(int genero)

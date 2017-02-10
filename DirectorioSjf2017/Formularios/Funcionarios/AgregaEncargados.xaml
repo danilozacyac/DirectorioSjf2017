@@ -44,7 +44,7 @@
                         VerticalAlignment="Top"
                         PreviewTextInput="TxtPreviewTextInput"
                         Text="{Binding Apellidos, Converter={StaticResource textConv}}"
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap" TabIndex="3" />
                     <Label
                         Margin="16,159,0,0"
                         HorizontalAlignment="Left"
@@ -59,7 +59,7 @@
                         VerticalAlignment="Top"
                         PreviewTextInput="TxtPreviewTextInput"
                         Text="{Binding Nombre, Converter={StaticResource textConv}}"
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap" TabIndex="4" />
                     <telerik:RadComboBox
                         x:Name="CbxGrado"
                         Width="120"
@@ -68,7 +68,7 @@
                         VerticalAlignment="Top"
                         DisplayMemberPath="TituloDesc"
                         ItemsSource="{Binding}"
-                        SelectedValuePath="IdTitulo" />
+                        SelectedValuePath="IdTitulo" TabIndex="2" />
                     <Label
                         Margin="35,64,0,0"
                         HorizontalAlignment="Left"
@@ -83,7 +83,7 @@
                         Content="Genero       "
                         FontSize="12"
                         IsChecked="True"
-                        Unchecked="TbGenero_Unchecked" />
+                        Unchecked="TbGenero_Unchecked" TabIndex="1" />
                     <Image
                         x:Name="ImGenero"
                         Width="32"
@@ -105,7 +105,7 @@
             VerticalAlignment="Top"
             Click="BtnSalir_Click"
             Content="Cancelar"
-            Style="{StaticResource BlueButton}" />
+            Style="{StaticResource BlueButton}" TabIndex="6" />
         <Button
             x:Name="BtnGuardar"
             Grid.Row="1"
@@ -116,7 +116,7 @@
             VerticalAlignment="Top"
             Click="BtnGuardar_Click"
             Content="Guardar"
-            Style="{StaticResource BlueButton}" />
+            Style="{StaticResource BlueButton}" TabIndex="5" />
 
 
     </Grid>

@@ -1,23 +1,10 @@
-﻿using DirectorioSjf2017.Dto;
-using DirectorioSjf2017.Formularios.Funcionarios;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows;
 using DirectorioSjf2017.Formularios.OrganismosF;
-using DirectorioSjf2017.Model;
-using DirectorioSjf2017.Reportes;
 using DirectorioSjf2017.Singletons;
 using PadronApi.Dto;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Telerik.Windows.Controls;
 
 namespace DirectorioSjf2017
@@ -29,15 +16,18 @@ namespace DirectorioSjf2017
     {
 
         private Organismo selectedOrganismo;
+        int tipoProceso = 1;
 
         public Directorio()
         {
             InitializeComponent();
+            worker.DoWork += this.WorkerDoWork;
+            worker.RunWorkerCompleted += WorkerRunWorkerCompleted;
         }
 
         private void RadWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            GOrganismos.DataContext = OrganismoDirSingleton.Organismos;
+            this.LaunchBusyIndicator();
 
             
 
@@ -74,6 +64,47 @@ namespace DirectorioSjf2017
             verOrg.ShowDialog();
         }
 
+
+        #region Background Worker
+
+        private BackgroundWorker worker = new BackgroundWorker();
+
+        private void WorkerDoWork(object sender, DoWorkEventArgs e)
+        {
+            if (tipoProceso == 1)
+            {
+                var x = OrganismoDirSingleton.Organismos;
+            }
+
+            
+        }
+
+        void WorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (tipoProceso == 1)
+            {
+                GOrganismos.DataContext = OrganismoDirSingleton.Organismos;
+                LblTotales.Content = OrganismoDirSingleton.Organismos.Count + " registros";
+            }
+
+            //if (tipoProceso == 3)
+            //    queImprime = null;
+
+            //fileName = String.Empty;
+            //Dispatcher.BeginInvoke(new Action<ObservableCollection<Organismos>>(this.UpdateGridDataSource), e.Result);
+            this.BusyIndicator.IsBusy = false;
+        }
+
+        private void LaunchBusyIndicator()
+        {
+            if (!worker.IsBusy)
+            {
+                this.BusyIndicator.IsBusy = true;
+                worker.RunWorkerAsync();
+            }
+        }
+
+        #endregion
        
     }
 }

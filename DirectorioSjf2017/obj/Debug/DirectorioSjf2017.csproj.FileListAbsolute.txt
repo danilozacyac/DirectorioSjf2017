@@ -108,3 +108,7 @@ C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\F
 C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\SeleccionaFuncionarios.baml
 C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\SeleccionaEncargados.g.cs
 C:\Users\lavega\Documents\GitHub\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\SeleccionaFuncionarios.g.cs
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\SeleccionaEncargados.baml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\SeleccionaFuncionarios.baml
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\SeleccionaEncargados.g.cs
+C:\Users\Luis\Documents\Visual Studio 2013\Projects\DirectorioSjf2017\DirectorioSjf2017\obj\Debug\Formularios\Funcionarios\SeleccionaFuncionarios.g.cs
