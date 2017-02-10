@@ -6,6 +6,7 @@ using DirectorioSjf2017.Formularios.OrganismosF;
 using DirectorioSjf2017.Singletons;
 using PadronApi.Dto;
 using Telerik.Windows.Controls;
+using DirectorioSjf2017.Reportes;
 
 namespace DirectorioSjf2017
 {
@@ -105,6 +106,12 @@ namespace DirectorioSjf2017
         }
 
         #endregion
+
+        private void BtnEncargadosTC_Click(object sender, RoutedEventArgs e)
+        {
+            WordReport report = new WordReport();
+            report.ListadoEncargados();
+        }
        
     }
 }

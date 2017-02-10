@@ -24,5 +24,13 @@ namespace DirectorioSjf2017.Singletons
                 return encargados;
             }
         }
+
+        public static int ResetEncargados
+        {
+            set
+            {
+                encargados = null;
+            }
+        }
     }
 }

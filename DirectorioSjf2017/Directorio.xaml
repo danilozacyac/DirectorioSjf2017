@@ -51,6 +51,18 @@
 
 
                     </telerik:RadRibbonGroup>
+                    <telerik:RadRibbonGroup Header="Listados">
+                        <telerik:RadRibbonButton
+                            x:Name="BtnEncargadosTC"
+                            LargeImage="Resources/Building.png"
+                            Size="Large"
+                            Tag="401" Click="BtnEncargadosTC_Click">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock HorizontalAlignment="Center" Text="Encargados de" />
+                                <TextBlock HorizontalAlignment="Center" Text="Trib. Colegiados" />
+                            </StackPanel>
+                        </telerik:RadRibbonButton>
+                    </telerik:RadRibbonGroup>
                 </telerik:RadRibbonTab>
             </telerik:RadRibbonView>
 
