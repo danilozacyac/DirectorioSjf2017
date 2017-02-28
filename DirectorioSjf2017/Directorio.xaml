@@ -43,7 +43,7 @@
                         <telerik:RadRibbonButton
                             x:Name="ModificaOrganismo"
                             Click="ModificaOrganismo_Click"
-                            Content="Modificar"
+                            Content="Modificar" IsEnabled="False"
                             LargeImage="Resources/Building_edit.png"
                             Size="Large"
                             Tag="403" />

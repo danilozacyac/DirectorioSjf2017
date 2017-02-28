@@ -108,8 +108,6 @@ namespace DirectorioSjf2017.Reportes
                 }
             }
 
-           
-
             
         }
 
